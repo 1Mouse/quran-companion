@@ -1,4 +1,10 @@
-# yaml-language-server: $schema=https://devenv.sh/devenv.schema.json
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
+  qt6-nixpkgs:
+    url: github:NixOS/nixpkgs/0ade817efdde79cbc46b624c849027335ebc25c5
+  treefmt-nix:
+    url: github:numtide/treefmt-nix
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
