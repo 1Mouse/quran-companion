@@ -135,6 +135,26 @@ QFrame#repeaterFrame {
 
 /* --------- Reader Styles --------- */
 
+VerseFrame[selected="true"],
+VerseFrame[selected="true"]:hover {
+  background-color: rgba(138, 180, 248, 90);
+  border-radius: 4px;
+}
+
+VerseFrame[selected="true"] QLabel,
+VerseFrame[selected="true"]:hover QLabel {
+  background-color: transparent;
+}
+
+VerseFrame[selected="false"]:hover {
+  background-color: rgba(138, 180, 248, 50);
+  border-radius: 4px;
+}
+
+VerseFrame[selected="false"]:hover QLabel {
+  background-color: transparent;
+}
+
 QFrame#frmReader {
   border: 1px solid #e3e3e3;
   border-radius: 7px;
