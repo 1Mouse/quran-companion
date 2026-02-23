@@ -1,7 +1,9 @@
 #include "reciter.h"
 #include <QApplication>
+#include <QCollator>
 #include <QFile>
 #include <QXmlStreamReader>
+#include <algorithm>
 #include <utils/dirmanager.h>
 
 QList<Reciter> Reciter::reciters;
@@ -35,6 +37,16 @@ Reciter::populateReciters()
 
   recitersFile.close();
   reciters.squeeze();
+
+  // sort reciters alphabetically by display name (locale-aware)
+  QCollator collator;
+  collator.setCaseSensitivity(Qt::CaseInsensitive);
+  collator.setNumericMode(true);
+  std::sort(reciters.begin(),
+            reciters.end(),
+            [&collator](const Reciter& a, const Reciter& b) {
+              return collator.compare(a.displayName(), b.displayName()) < 0;
+            });
 
   // create reciters directories
   QString temp = "recitations/%0";
@@ -86,4 +98,14 @@ bool
 Reciter::useId() const
 {
   return m_useId;
+}
+
+int
+Reciter::indexByDirName(const QString& dirName)
+{
+  for (int i = 0; i < reciters.size(); ++i) {
+    if (reciters.at(i).baseDirName() == dirName)
+      return i;
+  }
+  return 0;
 }

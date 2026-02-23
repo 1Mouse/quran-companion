@@ -28,8 +28,13 @@ PlayerControls::PlayerControls(QWidget* parent,
   foreach (const Reciter& r, m_reciters)
     ui->cmbReciter->addItem(r.displayName());
 
-  ui->cmbReciter->setCurrentIndex(
-    m_config.settings().value("Reciter", 0).toInt());
+  int reciterIdx = 0;
+  QVariant savedReciter = m_config.settings().value("Reciter");
+  if (savedReciter.typeId() == QMetaType::QString)
+    reciterIdx = Reciter::indexByDirName(savedReciter.toString());
+  else
+    reciterIdx = qBound(0, savedReciter.toInt(), Reciter::reciters.size() - 1);
+  ui->cmbReciter->setCurrentIndex(reciterIdx);
 }
 
 void

@@ -14,6 +14,7 @@ class Reciter
 public:
   static QList<Reciter> reciters;
   static void populateReciters();
+  static int indexByDirName(const QString& dirName);
 
   explicit Reciter(QString dir,
                    QString display,
